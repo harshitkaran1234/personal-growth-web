@@ -13,11 +13,13 @@ export type User = {
   is_onboarded: boolean;
 };
 
-export const requireUser = cache(async (): Promise<User> => {
+export async function authedJson<T>(path: string, init?: RequestInit): Promise<T> {
   try {
-    return await backendJson<User>("/v1/user/me");
+    return await backendJson<T>(path, init);
   } catch (error) {
     if (error instanceof BackendError && error.status === 401) redirect("/logout");
     throw error;
   }
-});
+}
+
+export const requireUser = cache(() => authedJson<User>("/v1/user/me"));

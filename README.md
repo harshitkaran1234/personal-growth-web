@@ -44,10 +44,12 @@ src/
   app/
     login/               email → code login
     logout/route.ts      clears the cookie
-    planner/             goal planner screen
+    planner/             goal planner screen: chat on the left, plan card on the right
     actions/auth.ts      login and logout server actions
+    actions/planner.ts   sendMessage and confirmPlan server actions
   components/            header, logo
   lib/
     backend.ts           server-only fetch to FastAPI with the token
-    session.ts           requireUser()
+    session.ts           authedJson() and requireUser(), redirect to /logout on 401
+    planner.ts           planner API types, matching the backend schemas
 ```
